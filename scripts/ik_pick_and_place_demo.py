@@ -192,7 +192,8 @@ def load_gazebo_models(table_pose=Pose(position=Point(x=1.05, y=0.0, z=0.0)),
                        block_pose2=Pose(position=Point(x=1.063386, y=0.368854, z=0.85)), block_reference_frame2="world",
                        block_pose3=Pose(position=Point(x=0.3, y=0.8, z=0.85)), block_reference_frame3="world"):
     # Get Models' Path
-    model_path = rospkg.RosPack().get_path('motion-planning-baxter') + "/Models/"
+    model_path = rospkg.RosPack().get_path('baxter_sim_examples') + "/models/"
+    project_model_path = rospkg.RosPack().get_path('motion-planning-baxter') + "/models/"
     # Load Table SDF
     table_xml = ''
     with open(model_path + "cafe_table/model.sdf", "r") as table_file:
@@ -200,21 +201,21 @@ def load_gazebo_models(table_pose=Pose(position=Point(x=1.05, y=0.0, z=0.0)),
 
     # Load Block URDF
     block_xml = ''
-    with open(model_path + "block/model.urdf", "r") as block_file:
+    with open(project_model_path + "block/model.urdf", "r") as block_file:
         block_xml = block_file.read().replace('\n', '')
 
     # Load obstacle Block URDF
     block_xml1 = ''
-    with open(model_path + "block/model1.urdf", "r") as block_file:
+    with open(project_model_path + "block/model1.urdf", "r") as block_file:
         block_xml1 = block_file.read().replace('\n', '')
 
     # Load obstacle Block 2 URDF
     block_xml2 = ''
-    with open(model_path + "block/model2.urdf", "r") as block_file:
+    with open(project_model_path + "block/model2.urdf", "r") as block_file:
         block_xml2 = block_file.read().replace('\n', '')
 
         block_xml3 = ''
-    with open(model_path + "block/model3.urdf", "r") as block_file:
+    with open(project_model_path + "block/model3.urdf", "r") as block_file:
         block_xml3 = block_file.read().replace('\n', '')
 
     # Spawn Table SDF
