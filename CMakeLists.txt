@@ -24,6 +24,6 @@ include_directories(
   ${catkin_INCLUDE_DIRS})
 
 install(PROGRAMS
-  scripts/
+  scripts/ik_pick_and_place_demo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
