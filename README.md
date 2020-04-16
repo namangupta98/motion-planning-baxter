@@ -28,13 +28,6 @@ cd ~/<ROS_Workspace>/src
 git clone https://github.com/ros-planning/moveit_robots.git
 catkin_make
 ```
-- Now, to launch Baxter Simulator, run:
-```
-cd ~/<ROS_Workspace>
-./baxter.sh sim
-roslaunch baxter_gazebo baxter_world.launch
-```
-
 
 ## Run Instructions
 
@@ -42,4 +35,16 @@ Navigate to your workspace, and clone the repo by typing
 ```
 cd ~/<ROS_Workspace>/src
 git clone https://github.com/namangupta98/motion-planning-baxter
+```
+
+Now, to launch Baxter Simulator, run:
+```
+cd ~/<ROS_Workspace>
+./baxter.sh sim
+roslaunch baxter_gazebo baxter_world.launch
+```
+Open new terminal and now run the node. Type,
+```
+source devel/setup.bash
+rosrun motion-planning-baxter ik_pick_and_place_demo.py
 ```
