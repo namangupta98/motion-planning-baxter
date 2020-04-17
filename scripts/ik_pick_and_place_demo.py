@@ -172,6 +172,18 @@ class PickAndPlace(object):
         # retract to clear object
         self._retract()
 
+    def travel(self, pose):
+        # open the gripper
+        # self.gripper_open()
+        # servo above pose
+        self._approach(pose)
+        # servo to pose
+        self._servo_to_pose(pose)
+        # close gripper
+        # self.gripper_close()
+        # retract to clear object
+        # self._retract()
+
     def place(self, pose):
         # servo above pose
         self._approach(pose)
@@ -334,23 +346,102 @@ def main():
     # The Pose of the block in its initial location.
     # You may wish to replace these poses with estimates
     # from a perception node.
+    # block_poses.append(Pose(
+    #     position=Point(x=0.7, y=0.15, z=-0.129),
+    #     orientation=overhead_orientation))
+
+    # way-point start red block
     block_poses.append(Pose(
-        position=Point(x=0.7, y=0.15, z=-0.129),
+        position=Point(x=0.78124, y=0.0578, z=-0.18309),
+        # orientation=Quaternion(x=0.73350099, y=0.67966131, z=0.0029673, w=0.0052892)))
         orientation=overhead_orientation))
+
+    # way-point red pick top pose
+    block_poses.append(Pose(
+         position=Point(x=0.808, y=0.078, z=0.2696),
+         orientation=overhead_orientation))
+
+    # way-point red place top pose
+    block_poses.append(Pose(
+        position=Point(x=0.2128, y=0.9577, z=0.19326),
+        orientation=overhead_orientation))
+
     # Feel free to add additional desired poses for the object.
     # Each additional pose will get its own pick and place.
+
+    # placing red box way-point on table
     block_poses.append(Pose(
-        position=Point(x=0.75, y=0.0, z=-0.129),
+        position=Point(x=0.2033, y=0.94807, z=-0.209),
         orientation=overhead_orientation))
+
     # Move to the desired starting angles
     pnp.move_to_start(starting_joint_angles)
     idx = 0
     while not rospy.is_shutdown():
-        print("\nPicking...")
+        print("\nPicking Red Block...")
         pnp.pick(block_poses[idx])
-        print("\nPlacing...")
-        idx = (idx + 1) % len(block_poses)
-        pnp.place(block_poses[idx])
+        print("\nMoving...")
+        travel_poses = block_poses[1:-1]
+        for i in range(len(travel_poses)):
+            pnp.travel(travel_poses[i])
+        # idx = (idx + 1) % len(block_poses)
+        print("\nPlacing Red Block...")
+        pnp.place(block_poses[-1])
+        break
+
+    white_block_poses = list()
+    # The Pose of the block in its initial location.
+    # You may wish to replace these poses with estimates
+    # from a perception node.
+    # white_block_poses.append(Pose(
+    #     position=Point(x=0.7, y=0.15, z=-0.129),
+    #     orientation=overhead_orientation))
+
+    # way-point pick top white block
+    # white_block_poses.append(Pose(
+    #     position=Point(x=0.323321, y=0.823580, z=0.0),
+    #     orientation=overhead_orientation))
+
+    # way-point white picking pose
+    white_block_poses.append(Pose(
+        position=Point(x=0.32144, y=0.82056, z=-0.1909),
+        orientation=overhead_orientation))
+
+    # way-point white picked top pose
+    white_block_poses.append(Pose(
+        position=Point(x=0.323321, y=0.823580, z=0.2849),
+        orientation=overhead_orientation))
+
+    # way-point white place top pose
+    white_block_poses.append(Pose(
+        position=Point(x=0.71722, y=0.05894, z=0.2849),
+        orientation=overhead_orientation))
+
+    # way-point white placing
+    white_block_poses.append(Pose(
+        position=Point(x=0.8494, y=0.04409, z=-0.19326),
+        orientation=overhead_orientation))
+
+    # Feel free to add additional desired poses for the object.
+    # Each additional pose will get its own pick and place.
+
+    # placing red box way-point on table
+    # white_block_poses.append(Pose(
+    #     position=Point(x=0.2033, y=0.94807, z=-0.209),
+    #     orientation=overhead_orientation))
+
+    idx = 0
+    while not rospy.is_shutdown():
+        print("\nPicking White Block...")
+        pnp.pick(white_block_poses[idx])
+        print("\nMoving...")
+        white_travel_poses = white_block_poses[1:-1]
+        for i in range(len(white_travel_poses)):
+            pnp.travel(white_travel_poses[i])
+        # idx = (idx + 1) % len(white_block_poses)
+        print("\nPlacing White Block...")
+        pnp.place(white_block_poses[-1])
+        break
     return 0
 
 
