@@ -183,14 +183,13 @@ class PickAndPlace(object):
         self._retract()
 
 
-def load_gazebo_models(table_pose=Pose(position=Point(x=1.05, y=0.0, z=0.0)),
-                       table_reference_frame="world",
-                       block_pose=Pose(position=Point(x=0.75, y=0.0265, z=0.7825)),
-                       block_reference_frame="world", table_pose1=Pose(position=Point(x=0.24, y=1.19, z=0.0)),
-                       table_reference_frame1="world",
+def load_gazebo_models(table_pose=Pose(position=Point(x=1.05, y=0.0, z=0.0)), table_reference_frame="world",
+                       block_pose=Pose(position=Point(x=0.75, y=0.0265, z=0.7825)), block_reference_frame="world", 
+                       table_pose1=Pose(position=Point(x=0.24, y=1.19, z=0.0)), table_reference_frame1="world",
                        block_pose1=Pose(position=Point(x=0.624727, y=1.181466, z=0.85)), block_reference_frame1="world",
                        block_pose2=Pose(position=Point(x=1.063386, y=0.368854, z=0.85)), block_reference_frame2="world",
                        block_pose3=Pose(position=Point(x=0.3, y=0.8, z=0.85)), block_reference_frame3="world"):
+    
     # Get Models' Path
     model_path = rospkg.RosPack().get_path('baxter_sim_examples') + "/models/"
     project_model_path = rospkg.RosPack().get_path('motion-planning-baxter') + "/models/"
