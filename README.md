@@ -45,6 +45,7 @@ roslaunch baxter_gazebo baxter_world.launch
 ```
 Open new terminal and now run the node. Type,
 ```
+cd ~/<ROS_Workspace>
 source devel/setup.bash
 rosrun motion-planning-baxter ik_pick_and_place_demo.py
 ```
