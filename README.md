@@ -1,6 +1,14 @@
 # Motion Planning using Baxter
+Pick and place of red blocks and white blocks using Baxter robot.
+
+<p align="center">
+  <img src="https://github.com/namangupta98/motion-planning-baxter/blob/master/References/baxter-demo-2.gif">
+  <br><b>Figure 1 - Baxter picking objects from one table and placing it to another.
+</p>
 
 ## Dependencies
+- ROS Kinetic
+- Gazebo 7
 
 ## Install Instructions
 - To install Gazebo, run:
@@ -49,3 +57,4 @@ cd ~/<ROS_Workspace>
 source devel/setup.bash
 rosrun motion-planning-baxter ik_pick_and_place_demo.py
 ```
+The instructions to determine the waypoints are given in video [tutorial](https://github.com/namangupta98/motion-planning-baxter/blob/master/References/tutorial.mp4).
