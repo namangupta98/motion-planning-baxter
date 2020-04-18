@@ -140,6 +140,13 @@ class PickAndPlace(object):
         joint_angles = self.ik_request(approach)
         self._guarded_move_to_joint_position(joint_angles)
 
+    def gotopose(self, pose):
+        approach = copy.deepcopy(pose)
+        # approach with a pose the hover-distance above the requested pose
+        #approach.position.z = approach.position.z + self._hover_distance
+        joint_angles = self.ik_request(approach)
+        self._guarded_move_to_joint_position(joint_angles)
+
     def _retract(self):
         # retrieve current pose from endpoint
         current_pose = self._limb.endpoint_pose()
@@ -176,7 +183,7 @@ class PickAndPlace(object):
         # open the gripper
         # self.gripper_open()
         # servo above pose
-        self._approach(pose)
+        #self._approach(pose)
         # servo to pose
         self._servo_to_pose(pose)
         # close gripper
@@ -353,7 +360,6 @@ def main():
     # way-point start red block
     block_poses.append(Pose(
         position=Point(x=0.78124, y=0.0578, z=-0.18309),
-        # orientation=Quaternion(x=0.73350099, y=0.67966131, z=0.0029673, w=0.0052892)))
         orientation=overhead_orientation))
 
     # way-point red pick top pose
@@ -404,17 +410,22 @@ def main():
 
     # way-point white picking pose
     white_block_poses.append(Pose(
-        position=Point(x=0.32144, y=0.82056, z=-0.1909),
+        position=Point(x=0.32144, y=0.82056, z=-0.2009),
         orientation=overhead_orientation))
 
-    # way-point white picked top pose
+    # way-point white after picking top pose
     white_block_poses.append(Pose(
-        position=Point(x=0.323321, y=0.823580, z=0.2849),
+        position=Point(x=0.29314, y=0.872059, z=0.1892236),
         orientation=overhead_orientation))
 
-    # way-point white place top pose
+    # # way-point white picked top pose
+    # white_block_poses.append(Pose(
+    #     position=Point(x=0.323321, y=0.823580, z=0.2849),
+    #     orientation=overhead_orientation))
+
+    # way-point white before placing top pose
     white_block_poses.append(Pose(
-        position=Point(x=0.71722, y=0.05894, z=0.2849),
+        position=Point(x=0.7303, y=0.10892, z=0.156023),
         orientation=overhead_orientation))
 
     # way-point white placing
@@ -430,6 +441,7 @@ def main():
     #     position=Point(x=0.2033, y=0.94807, z=-0.209),
     #     orientation=overhead_orientation))
 
+    pnp.move_to_start(starting_joint_angles)
     idx = 0
     while not rospy.is_shutdown():
         print("\nPicking White Block...")
@@ -439,6 +451,7 @@ def main():
         for i in range(len(white_travel_poses)):
             pnp.travel(white_travel_poses[i])
         # idx = (idx + 1) % len(white_block_poses)
+        pnp._retract()
         print("\nPlacing White Block...")
         pnp.place(white_block_poses[-1])
         break
